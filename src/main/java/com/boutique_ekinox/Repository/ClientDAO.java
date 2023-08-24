@@ -1,11 +1,12 @@
 package com.boutique_ekinox.Repository;
 
 import com.boutique_ekinox.Model.Client;
+import org.springframework.stereotype.Repository;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-
+@Repository
 public class ClientDAO extends UniversalDAO<Client> {
 
     public ClientDAO(Connection connection) {
@@ -15,7 +16,7 @@ public class ClientDAO extends UniversalDAO<Client> {
     @Override
     public List<Client> All() throws SQLException {
         List<Client> listeClient = new ArrayList<>();
-        String sql = "SELECT * FROM client";
+        String sql = "SELECT * FROM client;";
 
         try (Statement statement = getConnection().createStatement();
              ResultSet resultSet = statement.executeQuery(sql)) {
@@ -29,11 +30,7 @@ public class ClientDAO extends UniversalDAO<Client> {
 
     @Override
     public void delete(int id) throws SQLException {
-        String sql = "DELETE FROM client where id = ?";
-        try(PreparedStatement statement = getConnection().prepareStatement(sql)){
-            statement.setInt(1,id);
-            statement.executeUpdate();
-        }
+
     }
 
     @Override
