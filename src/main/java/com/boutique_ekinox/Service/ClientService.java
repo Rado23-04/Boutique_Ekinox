@@ -24,4 +24,7 @@ public class ClientService {
             throw new RuntimeException("Error");
         }
     }
+    public void deleteClient(int id) throws SQLException {
+        clientDAO.delete(id);
+    }
 }
