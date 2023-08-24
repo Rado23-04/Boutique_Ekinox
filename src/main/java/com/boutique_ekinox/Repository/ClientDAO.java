@@ -28,9 +28,12 @@ public class ClientDAO extends UniversalDAO<Client> {
         return listeClient;
     }
 
-    @Override
     public void delete(int id) throws SQLException {
-
+        String sql = "DELETE FROM client where id_client = ?";
+        try(PreparedStatement statement = getConnection().prepareStatement(sql)){
+            statement.setInt(1,id);
+            statement.executeUpdate();
+        }
     }
 
     @Override
