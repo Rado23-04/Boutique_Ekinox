@@ -44,5 +44,14 @@ public class ClientService {
             throw new RuntimeException("An error occurred while inserting the client.");
         }
     }
+    public Client update (Client Update){
+        try {
+             this.clientDAO.update(Update);
+             return Update;
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("An error occurred while updating the client.");
+        }
+    }
 
 }
