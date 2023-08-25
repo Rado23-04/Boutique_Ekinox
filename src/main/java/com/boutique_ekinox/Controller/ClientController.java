@@ -2,13 +2,11 @@ package com.boutique_ekinox.Controller;
 
 import com.boutique_ekinox.Model.Client;
 import com.boutique_ekinox.Service.ClientService;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class ClientController {
@@ -32,4 +30,9 @@ public class ClientController {
         clientService.deleteClient(id);
         return "Client successfully deleted ";
     }
+    @GetMapping("/id/{id}")
+    public Optional<Client> selectClient (@PathVariable int id) throws SQLException{
+        return clientService.IdClient(id);
+    }
+
 }
