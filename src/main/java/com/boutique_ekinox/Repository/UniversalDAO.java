@@ -13,6 +13,8 @@ public  abstract class UniversalDAO<Z> {
     public UniversalDAO(Connection connection) {
         this.connection = connection;
     }
+
+
     public Connection getConnection(){
         return connection ;
     }
