@@ -10,5 +10,10 @@ import lombok.ToString;
 @EqualsAndHashCode
 @ToString
 public class Reservation {
+    private int id_reservation;
     private String reservation_date;
+    private int id_client;
+    private int id_product;
+
+
 }
