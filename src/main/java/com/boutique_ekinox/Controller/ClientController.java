@@ -21,7 +21,7 @@ public class ClientController {
     public String pingPong(){
         return "pong";
     }
-    @GetMapping("/clients")
+    @GetMapping("/all_clients")
     public List<Client> all() throws SQLException {
         return clientService.allClients();
     }
@@ -34,7 +34,7 @@ public class ClientController {
     public Optional<Client> selectClient (@PathVariable int id) throws SQLException{
         return clientService.IdClient(id);
     }
-        @PostMapping("/insert")
+        @PostMapping("/insert_client")
         public Client insertTodo(@RequestBody Client toInsert){
             return clientService.insert(toInsert);
         }
