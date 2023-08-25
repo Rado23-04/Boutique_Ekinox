@@ -34,8 +34,12 @@ public class ClientController {
     public Optional<Client> selectClient (@PathVariable int id) throws SQLException{
         return clientService.IdClient(id);
     }
-        @PostMapping("/insert_client")
-        public Client insertTodo(@RequestBody Client toInsert){
-            return clientService.insert(toInsert);
-        }
+    @PostMapping("/insert_client")
+    public Client insertTodo(@RequestBody Client toInsert){
+        return clientService.insert(toInsert);
+    }
+    @PutMapping("/update")
+    public Client update (@RequestBody Client toUpdate){
+        return clientService.update(toUpdate);
+    }
 }
