@@ -54,12 +54,7 @@ public class ClientDAO extends UniversalDAO<Client> {
 
     @Override
     public void update(Client update) throws SQLException {
-        String sql = "UPDATE client\n" +
-                "SET first_name = 'Rado',\n" +
-                "    last_name = 'Nomena',\n" +
-                "    birthday = '2004-09-23',\n" +
-                "    address = 'Ivato'\n" +
-                "WHERE id_client = 7;\n";
+        String sql = "update client set first_name = ?, last_name= ?, birthday = ?, address = ? where id_client = ?";
         try (PreparedStatement statement = getConnection().prepareStatement(sql)){
             statement.setString(1,update.getFirst_name());
             statement.setString(2,update.getLast_name());
