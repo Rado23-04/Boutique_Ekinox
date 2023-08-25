@@ -72,8 +72,8 @@ public class ClientDAO extends UniversalDAO<Client> {
 
     @Override
     public void insert(Client Insert) throws SQLException {
-        String sql = "INSERT INTO client (id_client,credit_card,first_name,last_name,birthday,address,cin)"+
-                "VALUES (?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO client (id_client, credit_card, first_name, last_name, birthday, address, CIN)"+
+                "VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         try ( PreparedStatement statement = getConnection().prepareStatement(sql)) {
             statement.setInt(1,Insert.getId_client());
