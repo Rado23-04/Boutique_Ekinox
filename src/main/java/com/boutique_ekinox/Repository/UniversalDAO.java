@@ -1,9 +1,11 @@
 package com.boutique_ekinox.Repository;
 
+import com.boutique_ekinox.Model.Client;
+
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.ConcurrentModificationException;
 import java.util.List;
+import java.util.Optional;
 
 public  abstract class UniversalDAO<Z> {
     private Connection connection;
@@ -19,4 +21,6 @@ public  abstract class UniversalDAO<Z> {
     public abstract void delete (int id) throws SQLException;
     public abstract void update (Z update) throws SQLException;
     public abstract void insert(Z Insert) throws SQLException;
+    public abstract Optional<Client> selectById(int id) throws SQLException;
+
 }

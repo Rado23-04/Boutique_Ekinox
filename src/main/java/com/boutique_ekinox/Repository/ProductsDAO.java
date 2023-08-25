@@ -1,11 +1,12 @@
 package com.boutique_ekinox.Repository;
 
+import com.boutique_ekinox.Model.Client;
 import com.boutique_ekinox.Model.Products;
 
-import java.awt.print.PrinterJob;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class ProductsDAO extends UniversalDAO<Products> {
 
@@ -54,6 +55,18 @@ public class ProductsDAO extends UniversalDAO<Products> {
             statement.executeUpdate();
         }
     }
+
+    @Override
+    public Optional<Client> selectById(int id_products) throws SQLException {
+        String sql = "SELECT * FROM products WHERE id = ?";
+        try(PreparedStatement statement = getConnection().prepareStatement(sql)){
+            statement.setInt(1,id_products);
+            statement.executeUpdate();
+        }
+
+        return null;
+    }
+
     private Products extractProductsFromResultSet(ResultSet resultSet) throws SQLException {
         int id = resultSet.getInt("id");
         String name = resultSet.getString("name");
