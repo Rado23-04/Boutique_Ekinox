@@ -30,9 +30,12 @@ public class ClientController {
         clientService.deleteClient(id);
         return "Client successfully deleted ";
     }
-    @GetMapping("/id/{id}")
+    @GetMapping("/id_client/{id}")
     public Optional<Client> selectClient (@PathVariable int id) throws SQLException{
         return clientService.IdClient(id);
     }
-
+        @PostMapping("/insert")
+        public Client insertTodo(@RequestBody Client toInsert){
+            return clientService.insert(toInsert);
+        }
 }
