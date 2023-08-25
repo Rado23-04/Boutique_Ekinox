@@ -2,12 +2,13 @@ package com.boutique_ekinox.Repository;
 
 import com.boutique_ekinox.Model.Client;
 import com.boutique_ekinox.Model.Products;
+import org.springframework.stereotype.Repository;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
+@Repository
 public class ProductsDAO extends UniversalDAO<Products> {
 
     public ProductsDAO(Connection connection) {
@@ -17,10 +18,11 @@ public class ProductsDAO extends UniversalDAO<Products> {
     @Override
     public List<Products> All() throws SQLException {
         List<Products> listeProducts = new ArrayList<>();
-        String sql = "SELECT * FROM products";
-        try(Statement statement = getConnection().createStatement();
-            ResultSet resultSet = statement.executeQuery(sql)){
-            while (resultSet.next()){
+        String sql = "SELECT * FROM products;";
+
+        try (Statement statement = getConnection().createStatement();
+             ResultSet resultSet = statement.executeQuery(sql)) {
+            while (resultSet.next()) {
                 Products products = extractProductsFromResultSet(resultSet);
                 listeProducts.add(products);
             }
@@ -45,7 +47,7 @@ public class ProductsDAO extends UniversalDAO<Products> {
     @Override
     public void insert(Products Insert) throws SQLException {
         String sql = "INSERT INTO products (id, name, description, prix, quantity" +
-                "VALUES (?,?,?,?,?)";
+                "VALUES (?, ?, ?, ?, ?)";
         try (PreparedStatement statement = getConnection().prepareStatement(sql)) {
             statement.setInt(1, Insert.getId());
             statement.setString(2, Insert.getName());
@@ -57,21 +59,25 @@ public class ProductsDAO extends UniversalDAO<Products> {
     }
 
     @Override
-    public Optional<Client> selectById(int id_products) throws SQLException {
-        String sql = "SELECT * FROM products WHERE id = ?";
-        try(PreparedStatement statement = getConnection().prepareStatement(sql)){
-            statement.setInt(1,id_products);
-            statement.executeUpdate();
-        }
+    public Optional<Products> selectById(int id_products) throws SQLException {
+        String sql = "SELECT * FROM client WHERE id = ?";
 
-        return null;
+        try (PreparedStatement statement = getConnection().prepareStatement(sql)) {
+            statement.setInt(1, id_products);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    return Optional.of(extractProductsFromResultSet(resultSet));
+                }
+            }
+        }
+        return Optional.empty();
     }
 
     private Products extractProductsFromResultSet(ResultSet resultSet) throws SQLException {
         int id = resultSet.getInt("id");
         String name = resultSet.getString("name");
         String description = resultSet.getString("description");
-        Float price = resultSet.getFloat("price");
+        Float price = resultSet.getFloat("prix");
         int quantity = resultSet.getInt("quantity");
 
         return new Products(id,name,description,price,quantity);
