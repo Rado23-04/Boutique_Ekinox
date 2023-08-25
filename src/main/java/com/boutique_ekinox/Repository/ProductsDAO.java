@@ -40,11 +40,6 @@ public class ProductsDAO extends UniversalDAO<Products> {
     }
 
     @Override
-    public void update(Products update) throws SQLException {
-
-    }
-
-    @Override
     public void insert(Products Insert) throws SQLException {
         String sql = "INSERT INTO products (id, name, description, prix, quantity)"+
                 "VALUES (?, ?, ?, ?, ?)";
@@ -73,6 +68,11 @@ public class ProductsDAO extends UniversalDAO<Products> {
             }
         }
         return Optional.empty();
+    }
+
+    @Override
+    public void update(Client Update) throws SQLException {
+
     }
 
     private Products extractProductsFromResultSet(ResultSet resultSet) throws SQLException {

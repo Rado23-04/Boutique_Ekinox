@@ -19,8 +19,9 @@ public  abstract class UniversalDAO<Z> {
 
     public abstract List<Z> All () throws SQLException;
     public abstract void delete (int id) throws SQLException;
-    public abstract void update (Z update) throws SQLException;
+
     public abstract void insert(Z Insert) throws SQLException;
     public abstract Optional<Z> selectById(int id) throws SQLException;
 
+    public abstract void update(Client Update) throws SQLException;
 }
