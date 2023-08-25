@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ClientService {
@@ -26,5 +27,12 @@ public class ClientService {
     }
     public void deleteClient(int id) throws SQLException {
         clientDAO.delete(id);
+    }
+    public Optional<Client> IdClient (int id)throws SQLException{
+        try {
+            return clientDAO.selectById(id);
+        }catch (SQLException e){
+            throw new  RuntimeException("Error");
+        }
     }
 }
