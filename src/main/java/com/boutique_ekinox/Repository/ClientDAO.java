@@ -6,6 +6,8 @@ import org.springframework.stereotype.Repository;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
 @Repository
 public class ClientDAO extends UniversalDAO<Client> {
 
@@ -27,6 +29,20 @@ public class ClientDAO extends UniversalDAO<Client> {
         }
         return listeClient;
     }
+    @Override
+    public Optional<Client> selectById(int id) throws SQLException {
+        String sql = "SELECT * FROM client WHERE id_client = ?";
+
+        try (PreparedStatement statement = getConnection().prepareStatement(sql)) {
+            statement.setInt(1, id);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    return Optional.of(extractClientFromResultSet(resultSet));
+                }
+            }
+        }
+        return Optional.empty();
+    }
 
     public void delete(int id) throws SQLException {
         String sql = "DELETE FROM client where id_client = ?";
@@ -38,7 +54,12 @@ public class ClientDAO extends UniversalDAO<Client> {
 
     @Override
     public void update(Client update) throws SQLException {
-        String sql = "UPDATE client SET first_name = ?, last_name = ?, birthday = ?, address = ? where id = ?";
+        String sql = "UPDATE client\n" +
+                "SET first_name = 'Rado',\n" +
+                "    last_name = 'Nomena',\n" +
+                "    birthday = '2004-09-23',\n" +
+                "    address = 'Ivato'\n" +
+                "WHERE id_client = 7;\n";
         try (PreparedStatement statement = getConnection().prepareStatement(sql)){
             statement.setString(1,update.getFirst_name());
             statement.setString(2,update.getLast_name());
@@ -65,6 +86,9 @@ public class ClientDAO extends UniversalDAO<Client> {
             statement.executeUpdate();
         }
     }
+
+
+
     private Client extractClientFromResultSet(ResultSet resultSet) throws SQLException {
         int id = resultSet.getInt("id_client");
         String credit_card = resultSet.getString("credit_card");
