@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProductService {
@@ -32,6 +33,13 @@ public class ProductService {
             return productsDAO.All();
         }catch (SQLException e){
             throw new RuntimeException("An error occurred while finding all the products.");
+        }
+    }
+    public Optional<Products> IdProduct (int id)throws SQLException{
+        try {
+            return productsDAO.selectById(id);
+        }catch (SQLException e){
+            throw new  RuntimeException("An error occurred while finding the product.");
         }
     }
 }
