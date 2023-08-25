@@ -22,7 +22,7 @@ public class ProductController {
         return "iiii";
     }
     @PostMapping("/insert_product")
-    public Products insertTodo(@RequestBody Products toInsert){
+    public Products insertProduct(@RequestBody Products toInsert){
         return productService.insert(toInsert);
     }
     @DeleteMapping("/delete_product/{id}")

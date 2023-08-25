@@ -15,7 +15,7 @@ public class ReservationController {
         this.reservationService = reservationService;
     }
     @PostMapping("/insert_reservation")
-    public Reservation insertTodo(@RequestBody Reservation toInsert){
+    public Reservation insertReservation(@RequestBody Reservation toInsert){
         return reservationService.insert(toInsert);
     }
     @DeleteMapping("/delete_reservation/{id}")

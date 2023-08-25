@@ -35,7 +35,7 @@ public class ClientController {
         return clientService.IdClient(id);
     }
     @PostMapping("/insert_client")
-    public Client insertTodo(@RequestBody Client toInsert){
+    public Client insertClient(@RequestBody Client toInsert){
         return clientService.insert(toInsert);
     }
     @PutMapping("/update")
