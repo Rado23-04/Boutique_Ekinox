@@ -46,24 +46,26 @@ public class ProductsDAO extends UniversalDAO<Products> {
 
     @Override
     public void insert(Products Insert) throws SQLException {
-        String sql = "INSERT INTO products (id, name, description, prix, quantity" +
+        String sql = "INSERT INTO products (id, name, description, prix, quantity)"+
                 "VALUES (?, ?, ?, ?, ?)";
-        try (PreparedStatement statement = getConnection().prepareStatement(sql)) {
-            statement.setInt(1, Insert.getId());
-            statement.setString(2, Insert.getName());
+
+        try ( PreparedStatement statement = getConnection().prepareStatement(sql)) {
+            statement.setInt(1,Insert.getId());
+            statement.setString(2,Insert.getName());
             statement.setString(3, Insert.getDescription());
             statement.setFloat(4, Insert.getPrice());
             statement.setInt(5, Insert.getQuantity());
+
             statement.executeUpdate();
         }
     }
 
     @Override
-    public Optional<Products> selectById(int id_products) throws SQLException {
-        String sql = "SELECT * FROM client WHERE id = ?";
+    public Optional<Products> selectById(int id) throws SQLException {
+        String sql = "SELECT * FROM products WHERE id = ?";
 
         try (PreparedStatement statement = getConnection().prepareStatement(sql)) {
-            statement.setInt(1, id_products);
+            statement.setInt(1, id);
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
                     return Optional.of(extractProductsFromResultSet(resultSet));
