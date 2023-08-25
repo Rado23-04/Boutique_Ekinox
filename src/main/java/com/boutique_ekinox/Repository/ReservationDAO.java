@@ -32,7 +32,11 @@ public class ReservationDAO extends UniversalDAO<Reservation> {
 
     @Override
     public void delete(int id) throws SQLException {
-
+        String sql = "DELETE FROM reservation WHERE id_reservation = ?";
+        try (PreparedStatement statement = getConnection().prepareStatement(sql)){
+            statement.setInt(1,id);
+            statement.executeUpdate();
+        }
     }
 
     @Override
@@ -52,6 +56,16 @@ public class ReservationDAO extends UniversalDAO<Reservation> {
 
     @Override
     public Optional<Reservation> selectById(int id) throws SQLException {
+        String sql = "SELECT * FROM reservation WHERE id_reservation = ?";
+
+        try (PreparedStatement statement = getConnection().prepareStatement(sql)) {
+            statement.setInt(1, id);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    return Optional.of(extractReservationFromResultSet(resultSet));
+                }
+            }
+        }
         return Optional.empty();
     }
 
