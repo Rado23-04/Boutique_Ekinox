@@ -22,7 +22,7 @@ public class ClientService {
         try {
             return clientDAO.All();
         }catch (SQLException e){
-            throw new RuntimeException("Error");
+            throw new RuntimeException("An error occurred while finding all the clients.");
         }
     }
     public void deleteClient(int id) throws SQLException {
@@ -32,7 +32,17 @@ public class ClientService {
         try {
             return clientDAO.selectById(id);
         }catch (SQLException e){
-            throw new  RuntimeException("Error");
+            throw new  RuntimeException("An error occurred while finding the client.");
         }
     }
+    public Client insert(Client toInsert) {
+        try {
+            this.clientDAO.insert(toInsert);
+            return toInsert;
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("An error occurred while inserting the client.");
+        }
+    }
+
 }
