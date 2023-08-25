@@ -2,12 +2,14 @@ package com.boutique_ekinox.Controller;
 
 
 
+import com.boutique_ekinox.Model.Client;
 import com.boutique_ekinox.Model.Products;
 import com.boutique_ekinox.Service.ProductService;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class ProductController {
@@ -28,8 +30,12 @@ public class ProductController {
         productService.deleteClient(id);
         return "Client successfully deleted";
     }
-    @GetMapping("/products")
+    @GetMapping("/all_products")
     public List<Products> all() throws SQLException {
         return productService.allProducts();
+    }
+    @GetMapping("/id_product/{id}")
+    public Optional<Products> selectProduct (@PathVariable int id) throws SQLException{
+        return productService.IdProduct(id);
     }
 }
