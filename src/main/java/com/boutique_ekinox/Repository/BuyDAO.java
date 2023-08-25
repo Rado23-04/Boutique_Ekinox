@@ -41,11 +41,29 @@ public class BuyDAO extends UniversalDAO<Buy> {
 
     @Override
     public void insert(Buy Insert) throws SQLException {
+        String sql = "insert into buy (id_client, id_product)"+
+                "VALUES (?, ?)";
 
+        try ( PreparedStatement statement = getConnection().prepareStatement(sql)) {
+            statement.setInt(1,Insert.getId_client());
+            statement.setInt(2,Insert.getId_product());
+
+            statement.executeUpdate();
+        }
     }
 
     @Override
     public Optional<Buy> selectById(int id) throws SQLException {
+        String sql = "SELECT * FROM buy WHERE id_client = ?";
+
+        try (PreparedStatement statement = getConnection().prepareStatement(sql)) {
+            statement.setInt(1, id);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    return Optional.of(extractBuyFromResultSet(resultSet));
+                }
+            }
+        }
         return Optional.empty();
     }
 
@@ -56,8 +74,6 @@ public class BuyDAO extends UniversalDAO<Buy> {
     private Buy extractBuyFromResultSet(ResultSet resultSet) throws SQLException {
         int id_client = resultSet.getInt("id_client");
         int id_product = resultSet.getInt("id_product");
-
-
         return new Buy(id_client, id_product);
     }
 }
