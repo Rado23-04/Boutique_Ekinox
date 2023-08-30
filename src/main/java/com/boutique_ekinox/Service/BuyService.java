@@ -1,7 +1,6 @@
 package com.boutique_ekinox.Service;
 
 import com.boutique_ekinox.Model.Buy;
-import com.boutique_ekinox.Model.Client;
 import com.boutique_ekinox.Repository.BuyDAO;
 import org.springframework.stereotype.Service;
 

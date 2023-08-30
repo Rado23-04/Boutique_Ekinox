@@ -25,7 +25,7 @@ public class ProductService {
             throw new RuntimeException("An error occurred while inserting the product.");
         }
     }
-    public void deleteClient(int id) throws SQLException {
+    public void deleteProduct(int id) throws SQLException {
         productsDAO.delete(id);
     }
     public List<Products> allProducts() throws SQLException {
