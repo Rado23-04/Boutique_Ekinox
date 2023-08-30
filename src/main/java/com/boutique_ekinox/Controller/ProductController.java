@@ -17,18 +17,14 @@ public class ProductController {
     public ProductController(ProductService productService){
         this.productService = productService;
     }
-    @GetMapping("/aaa")
-    public String pingPong(){
-        return "iiii";
-    }
     @PostMapping("/insert_product")
     public Products insertProduct(@RequestBody Products toInsert){
         return productService.insert(toInsert);
     }
     @DeleteMapping("/delete_product/{id}")
     public String deleteClient(@PathVariable int id) throws SQLException {
-        productService.deleteClient(id);
-        return "Client successfully deleted";
+        productService.deleteProduct(id);
+        return "Product successfully deleted";
     }
     @GetMapping("/all_products")
     public List<Products> all() throws SQLException {

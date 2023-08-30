@@ -16,11 +16,6 @@ public class ClientController {
     public ClientController(ClientService clientService) {
         this.clientService = clientService;
     }
-
-    @GetMapping("/ping")
-    public String pingPong(){
-        return "pong";
-    }
     @GetMapping("/all_clients")
     public List<Client> all() throws SQLException {
         return clientService.allClients();

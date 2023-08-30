@@ -24,7 +24,7 @@ public class ReservationController {
         return "Client successfully deleted";
     }
     @GetMapping("/id_reservation/{id}")
-    public Optional<Reservation> selectProduct (@PathVariable int id) throws SQLException{
+    public Optional<Reservation> selectReservation (@PathVariable int id) throws SQLException{
         return reservationService.IdReservation(id);
     }
 }
